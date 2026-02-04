@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>CASINO DO AILTON22 🍀</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(70,0,120,0.85), rgba(70,0,120,0.85)),
+    url("background.jpg") no-repeat center/cover;
+  color: white;
+}
+
+.page {
+  display: none;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.page.active {
+  display: flex;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 40px;
+}
+
+button {
+  background: linear-gradient(45deg, #8e2de2, #4a00e0);
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(180,120,255,0.8);
+}
+
+.info {
+  margin-top: 25px;
+  max-width: 420px;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* ROLETAS */
+.slot-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.slot {
+  width: 90px;
+  height: 90px;
+  background: #2a003d;
+  border-radius: 15px;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.7);
+}
+
+/* CHUVA DE TREVO */
+.clover {
+  position: fixed;
+  top: -50px;
+  font-size: 3.5rem;
+  animation: fall 2.5s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PÁGINA 1 -->
+<div class="page active" id="home">
+  <h1>CASINO DO AILTON22 🍀</h1>
+
+  <button onclick="irParaCasino()">COMEÇAR</button>
+
+  <div class="info">
+    Este é um simulador criado apenas para fins educacionais e de entretenimento.
+    Jogue com responsabilidade. Não envolve dinheiro real.
+  </div>
+</div>
+
+<!-- PÁGINA 2 -->
+<div class="page" id="casino">
+  <div class="slot-container">
+    <div class="slot" id="s1">🍒</div>
+    <div class="slot" id="s2">🍋</div>
+    <div class="slot" id="s3">🍉</div>
+  </div>
+
+  <button onclick="girar()">🍀 GIRAR 🍀</button>
+</div>
+
+<script>
+const frutas = ["🍒","🍋","🍉","🍇","🍎","🍓"];
+
+function irParaCasino() {
+  document.getElementById("home").classList.remove("active");
+  document.getElementById("casino").classList.add("active");
+}
+
+function girar() {
+  const chance = Math.random();
+  let resultado;
+
+  if (chance < 0.32) {
+    // 32% de chance de 777
+    resultado = ["7️⃣","7️⃣","7️⃣"];
+    chuvaDeTrevos();
+  } else {
+    resultado = [
+      frutas[Math.floor(Math.random() * frutas.length)],
+      frutas[Math.floor(Math.random() * frutas.length)],
+      frutas[Math.floor(Math.random() * frutas.length)]
+    ];
+  }
+
+  animar("s1", resultado[0], 600);
+  animar("s2", resultado[1], 900);
+  animar("s3", resultado[2], 1200);
+}
+
+function animar(id, final, tempo) {
+  const el = document.getElementById(id);
+  let t = 0;
+
+  const anim = setInterval(() => {
+    el.textContent = frutas[Math.floor(Math.random() * frutas.length)];
+    t += 100;
+    if (t >= tempo) {
+      clearInterval(anim);
+      el.textContent = final;
+    }
+  }, 100);
+}
+
+function chuvaDeTrevos() {
+  for (let i = 0; i < 35; i++) {
+    const trevo = document.createElement("div");
+    trevo.className = "clover";
+    trevo.textContent = "🍀";
+    trevo.style.left = Math.random() * 100 + "vw";
+    trevo.style.animationDuration = (2 + Math.random()) + "s";
+    document.body.appendChild(trevo);
+
+    setTimeout(() => trevo.remove(), 3000);
+  }
+}
+</script>
+
+</body>
+</html>
